@@ -6,6 +6,8 @@ fn main() {
 }
 
 fn view(app: &App, frame: Frame) {
+    // draw only once
+    app.set_loop_mode(LoopMode::loop_once());
     let draw = app.draw();
 
     draw.background().color(WHITE);
