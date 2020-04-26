@@ -21,3 +21,7 @@ path = "01_04_div_square.rs"
 [[example]]
 name = "01_05_rect_div_rect"
 path = "01_05_rect_div_rect.rs"
+
+[[example]]
+name = "01_08_recursive_div_rect"
+path = "01_08_recursive_div_rect.rs"
