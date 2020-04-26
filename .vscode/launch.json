@@ -1,0 +1,119 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug example '01_02_div_rect'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--example=01_02_div_rect",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "01_02_div_rect",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in example '01_02_div_rect'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--example=01_02_div_rect",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "01_02_div_rect",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug example '01_04_div_square'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--example=01_04_div_square",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "01_04_div_square",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in example '01_04_div_square'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--example=01_04_div_square",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "01_04_div_square",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug example '01_05_rect_div_rect'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--example=01_05_rect_div_rect",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "01_05_rect_div_rect",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in example '01_05_rect_div_rect'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--example=01_05_rect_div_rect",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "01_05_rect_div_rect",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
