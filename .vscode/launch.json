@@ -114,6 +114,43 @@
             },
             "args": [],
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug example '01_08_recursive_div_rect'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--example=01_08_recursive_div_rect",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "01_08_recursive_div_rect",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in example '01_08_recursive_div_rect'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--example=01_08_recursive_div_rect",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "01_08_recursive_div_rect",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
