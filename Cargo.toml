@@ -11,5 +11,9 @@ nannou = "0.14.0"
 rand = "0.7.3"
 
 [[example]]
-name = "01_02_DivRect"
-path = "01_02_DivRect.rs"
+name = "01_02_div_rect"
+path = "01_02_div_rect.rs"
+
+[[example]]
+name = "01_04_div_square"
+path = "01_04_div_square.rs"
