@@ -6,7 +6,15 @@ fn main() {
 }
 
 struct Model {
-    threshold: f32,
+    clicks: i32,
+    clicked_frame: u64,
+    needs_refresh: bool,
+}
+
+impl Model {
+    fn threshold(&self) -> f32 {
+        500.0 / 2.0.powi(self.clicks)
+    }
 }
 
 fn model(app: &App) -> Model {
@@ -15,23 +23,44 @@ fn model(app: &App) -> Model {
 
     app.new_window()
         .size(wd, wd + 30)
-        .mouse_pressed(mouse_pressed)
+        .mouse_released(mouse_released)
+        .resized(resized)
         .view(view)
         .build()
         .unwrap();
 
     Model {
-        threshold: wd as f32,
+        clicks: 0,
+        clicked_frame: 0,
+        needs_refresh: true,
     }
 }
 
-fn mouse_pressed(_app: &App, model: &mut Model, _button: MouseButton) {
-    println!("mouse pressed, threshold is {}", model.threshold);
-    model.threshold *= 0.8;
+fn mouse_released(app: &App, model: &mut Model, _button: MouseButton) {
+    println!("mouse pressed, threshold is {}", model.threshold());
+    model.clicks += 1;
+    model.clicked_frame = app.elapsed_frames();
+    model.needs_refresh = true;
 }
 
-fn update(_app: &App, _model: &mut Model, update: Update) {
-    println!("{:?}", update);
+fn resized(app: &App, model: &mut Model, dim: Vector2) {
+    println!(
+        "Frame {}: window resized to ({}, {})",
+        app.elapsed_frames(),
+        dim.x,
+        dim.y
+    );
+    model.clicked_frame = app.elapsed_frames();
+    model.needs_refresh = true;
+}
+
+fn update(app: &App, model: &mut Model, _update: Update) {
+    if model.clicked_frame != app.elapsed_frames() {
+        if model.needs_refresh {
+            println!("Refreshed?");
+        }
+        model.needs_refresh = false;
+    }
 }
 
 fn draw_rect(draw: &Draw, r: &Rect) {
@@ -119,6 +148,11 @@ fn view(app: &App, model: &Model, frame: Frame) {
     // draw only once
     let draw = app.draw();
 
+    if !model.needs_refresh {
+        return;
+    }
+
+    println!("Drawing (Frame: {})", app.elapsed_frames());
     draw.background().color(WHITE);
 
     let num_a = 10;
@@ -126,6 +160,6 @@ fn view(app: &App, model: &Model, frame: Frame) {
     let ratio = num_b as f32 / num_a as f32;
 
     let win = app.window_rect();
-    div_rect(&draw, &win, ratio, model.threshold);
+    div_rect(&draw, &win, ratio, model.threshold());
     draw.to_frame(app, &frame).unwrap();
 }
