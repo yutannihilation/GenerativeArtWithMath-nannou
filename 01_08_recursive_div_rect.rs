@@ -7,13 +7,13 @@ fn main() {
 
 struct Model {
     clicks: i32,
-    clicked_frame: u64,
+    current_frame: u64,
     needs_refresh: bool,
 }
 
 impl Model {
     fn threshold(&self) -> f32 {
-        500.0 / 2.0.powi(self.clicks)
+        500.0 / 1.2.powi(self.clicks)
     }
 }
 
@@ -23,39 +23,38 @@ fn model(app: &App) -> Model {
 
     app.new_window()
         .size(wd, wd + 30)
-        .mouse_released(mouse_released)
-        .resized(resized)
+        .event(event)
+        // .mouse_released(mouse_released)
+        // .resized(resized)
         .view(view)
         .build()
         .unwrap();
 
     Model {
         clicks: 0,
-        clicked_frame: 0,
+        current_frame: 0,
         needs_refresh: true,
     }
 }
 
-fn mouse_released(app: &App, model: &mut Model, _button: MouseButton) {
-    println!("mouse pressed, threshold is {}", model.threshold());
-    model.clicks += 1;
-    model.clicked_frame = app.elapsed_frames();
-    model.needs_refresh = true;
-}
+fn event(app: &App, model: &mut Model, event: WindowEvent) {
+    match event {
+        Resized(dim) => println!(
+            "Resized to {}, {} (Frame: {})",
+            dim.x,
+            dim.y,
+            app.elapsed_frames()
+        ),
+        MouseReleased(_) => model.clicks += 1,
+        _ => return,
+    }
 
-fn resized(app: &App, model: &mut Model, dim: Vector2) {
-    println!(
-        "Frame {}: window resized to ({}, {})",
-        app.elapsed_frames(),
-        dim.x,
-        dim.y
-    );
-    model.clicked_frame = app.elapsed_frames();
+    model.current_frame = app.elapsed_frames();
     model.needs_refresh = true;
 }
 
 fn update(app: &App, model: &mut Model, _update: Update) {
-    if model.clicked_frame != app.elapsed_frames() {
+    if model.current_frame != app.elapsed_frames() {
         if model.needs_refresh {
             println!("Refreshed?");
         }
