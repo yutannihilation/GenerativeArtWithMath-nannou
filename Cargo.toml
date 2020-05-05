@@ -11,6 +11,10 @@ nannou = "0.14.0"
 rand = "0.7.3"
 
 [[example]]
+name = "test"
+path = "test.rs"
+
+[[example]]
 name = "01_02_div_rect"
 path = "01_02_div_rect.rs"
 
@@ -25,3 +29,7 @@ path = "01_05_rect_div_rect.rs"
 [[example]]
 name = "01_08_recursive_div_rect"
 path = "01_08_recursive_div_rect.rs"
+
+[[example]]
+name = "03_04_fib_square"
+path = "03_04_fib_square/03_04_fib_square.rs"

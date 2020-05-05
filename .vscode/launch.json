@@ -7,6 +7,43 @@
         {
             "type": "lldb",
             "request": "launch",
+            "name": "Debug example 'test'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--example=test",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "test",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in example 'test'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--example=test",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "test",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
             "name": "Debug example '01_02_div_rect'",
             "cargo": {
                 "args": [
@@ -146,6 +183,43 @@
                 ],
                 "filter": {
                     "name": "01_08_recursive_div_rect",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug example '03_04_fib_square'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--example=03_04_fib_square",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "03_04_fib_square",
+                    "kind": "example"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in example '03_04_fib_square'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--example=03_04_fib_square",
+                    "--package=GenerativeArtWithMath-nannou"
+                ],
+                "filter": {
+                    "name": "03_04_fib_square",
                     "kind": "example"
                 }
             },
