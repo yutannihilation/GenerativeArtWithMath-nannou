@@ -1,18 +1,30 @@
 use nannou::prelude::*;
+use nannou::ui::prelude::*;
 
 mod fib;
 use crate::fib::Fibonacci;
+
+use geom::rect::Rect;
 
 fn main() {
     nannou::app(model).update(update).run();
 }
 
 struct Model {
+    ui: Ui,
+    widgets: Widgets,
     clicks: u32,
     current_frame: u64,
     needs_refresh: bool,
     scale: f32,
-    rotate: f32,
+    rotation: f32,
+    // stroke: f32,
+}
+
+struct Widgets {
+    scale: widget::Id,
+    rotation: widget::Id,
+    // stroke: widget::Id,
 }
 
 fn model(app: &App) -> Model {
@@ -26,12 +38,23 @@ fn model(app: &App) -> Model {
         .build()
         .unwrap();
 
+    let mut ui = app.new_ui().build().unwrap();
+
+    let widgets = Widgets {
+        scale: ui.generate_widget_id(),
+        rotation: ui.generate_widget_id(),
+        // stroke: ui.generate_widget_id(),
+    };
+
     Model {
+        ui,
+        widgets,
         clicks: 0,
         current_frame: 1,
         needs_refresh: true,
         scale: 1.0,
-        rotate: 0.0,
+        rotation: 0.0,
+        // stroke: 5.0,
     }
 }
 
@@ -49,15 +72,40 @@ fn event(app: &App, model: &mut Model, event: WindowEvent) {
 }
 
 fn update(app: &App, model: &mut Model, _update: Update) {
-    if model.current_frame != app.elapsed_frames() {
-        model.needs_refresh = false;
+    let ui = &mut model.ui.set_widgets();
+
+    fn slider(val: f32, min: f32, max: f32) -> widget::Slider<'static, f32> {
+        widget::Slider::new(val, min, max)
+            .w_h(200.0, 30.0)
+            .label_font_size(15)
+            .rgb(0.3, 0.3, 0.3)
+            .label_rgb(1.0, 1.0, 1.0)
+            .border(0.0)
     }
-    model.scale *= 0.995;
-    model.rotate = 2.0 * PI * (app.elapsed_frames() % 200) as f32 / 200.0
+
+    for value in slider(model.scale.log10(), -4.0, 2.0)
+        .top_left_with_margin(20.0)
+        .label("Scale")
+        .set(model.widgets.scale, ui)
+    {
+        model.scale = 10.0.powf(value);
+    }
+
+    for value in slider(model.rotation, 0.0, 2.0 * PI)
+        .down(10.0)
+        .label("Rotation")
+        .set(model.widgets.rotation, ui)
+    {
+        model.rotation = value;
+    }
+    model.scale *= 0.998;
+    model.rotation += 2.0 * PI / 300.0;
+    model.rotation %= 2.0 * PI;
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {
-    let draw = app.draw().rotate(model.rotate).scale(model.scale);
+    // Begin drawing
+    let draw = app.draw().rotate(model.rotation).scale(model.scale);
 
     draw.background().color(WHITE);
 
@@ -84,4 +132,6 @@ fn view(app: &App, model: &Model, frame: Frame) {
             .stroke_color(BLUE);
     }
     draw.to_frame(app, &frame).unwrap();
+    // Draw the state of the `Ui` to the frame.
+    model.ui.draw_to_frame(app, &frame).unwrap();
 }
