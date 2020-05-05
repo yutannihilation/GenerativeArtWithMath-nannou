@@ -24,15 +24,13 @@ fn model(app: &App) -> Model {
     app.new_window()
         .size(wd, wd + 30)
         .event(event)
-        // .mouse_released(mouse_released)
-        // .resized(resized)
         .view(view)
         .build()
         .unwrap();
 
     Model {
         clicks: 0,
-        current_frame: 0,
+        current_frame: 1,
         needs_refresh: true,
     }
 }
@@ -144,7 +142,6 @@ fn div_rect(draw: &Draw, win: &Rect, ratio: f32, threshold: f32) {
 }
 
 fn view(app: &App, model: &Model, frame: Frame) {
-    // draw only once
     let draw = app.draw();
 
     if !model.needs_refresh {
