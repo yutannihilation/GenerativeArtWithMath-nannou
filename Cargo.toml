@@ -33,3 +33,7 @@ path = "01_08_recursive_div_rect.rs"
 [[example]]
 name = "03_04_fib_square"
 path = "03_04_fib_square/03_04_fib_square.rs"
+
+[[example]]
+name = "04_recur_square"
+path = "04_recur_square.rs"
