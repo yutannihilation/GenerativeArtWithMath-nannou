@@ -153,4 +153,16 @@ fn view(app: &App, model: &Model, frame: Frame) {
         _ => {}
     }
     draw.to_frame(app, &frame).unwrap();
+
+    let file_path = captured_frame_path(app, &frame);
+    app.main_window().capture_frame(file_path);
+}
+
+fn captured_frame_path(app: &App, frame: &Frame) -> std::path::PathBuf {
+    // Create a path that we want to save this frame to.
+    app.project_path()
+        .expect("failed to locate `project_path`")
+        .join(app.exe_name().unwrap())
+        .join(format!("{:03}", frame.nth()))
+        .with_extension("png")
 }
