@@ -37,3 +37,7 @@ path = "03_04_fib_square/03_04_fib_square.rs"
 [[example]]
 name = "04_recur_square"
 path = "04_recur_square.rs"
+
+[[example]]
+name = "09_quad_bezier"
+path = "09_quad_bezier.rs"
